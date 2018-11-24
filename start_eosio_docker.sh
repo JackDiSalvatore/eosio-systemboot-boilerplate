@@ -11,10 +11,23 @@ cd "$(dirname "$0")/eosio_docker"
 #     script="./scripts/init_blockchain.sh"
 # fi
 
-#rm ./data/initialized
-#rmdir ./data/blocks/
-#rmdir ./data/state/
-#rmdir ./data/snapshots/
+if [ -e "data/initialized" ]
+then
+   rm data/initialized
+fi
+if [ -e "data/blocks/" ]
+then
+   rm -rf data/blocks/
+fi
+if [ -e "data/snapshots/" ]
+then
+   rm -rf data/snapshots/
+fi
+if [ -e "data/state/" ]
+then
+   rm -rf data/state/
+fi
+
 script="./scripts/init_blockchain.sh"
 
 echo "=== run docker container from the eosio/eos-dev image ==="

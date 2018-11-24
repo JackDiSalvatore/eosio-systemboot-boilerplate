@@ -1,6 +1,4 @@
 
-20181123 Jack DiSalvatore:
-
 This is a work in progress
 
 To run a full boot of the eosio system contracts (eosio.contractsv1.4.0),
@@ -10,15 +8,10 @@ To run a full boot of the eosio system contracts (eosio.contractsv1.4.0),
 ./start_eosio_docker.sh
 ```
 
-To shut down press Ctrl+C and run each command
+To shut down press Ctrl+C and run
 
 ```bash
-docker stop eosio_notechain_container
-
-rm eosio_docker/data/initialized
-rm -rf eosio_docker/data/blocks/
-rm -rf eosio_docker/data/snaphots/
-rm -rf eosio_docker/data/state/
+./stop_eosio_docker.sh
 ```
 
 ---
