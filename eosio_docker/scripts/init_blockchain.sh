@@ -85,7 +85,7 @@ deploy_system_contract.sh eosio.msig eosio.msig notechainwal $(cat notechain_wal
 
 
 # Set the system contract - times out first times, works second time
-sleep .5 && cleos set contract eosio ./contracts/build/eosio.system/ -p eosio
+sleep .5 && cleos set contract eosio ./contracts/eosio.contracts/build/eosio.system/ -p eosio
 sleep .5
 
 echo 'init system contract'
