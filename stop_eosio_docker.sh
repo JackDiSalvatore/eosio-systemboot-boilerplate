@@ -1,1 +1,1 @@
-docker stop eosio_notechain_container
+docker stop eosio_container

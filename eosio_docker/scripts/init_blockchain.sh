@@ -97,7 +97,8 @@ cleos push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
 
 echo "=== create user accounts ==="
 # script for create data into blockchain
-#create_accounts.sh
+create_accounts.sh
+
 cleos system newaccount eosio --transfer dummyaccount EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9 \
 --stake-net "1.0000 EOS" --stake-cpu "1.0000 EOS" --buy-ram-kbytes 8192
 
