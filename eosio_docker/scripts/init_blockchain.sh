@@ -42,20 +42,20 @@ OWNER_PRIVATE_KEY="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"
 ACTIVE_PUBLIC_KEY="EOS5iBKH8KxAU4BLomJseyhWVvwmTiU4a98xKVwLciPZosHgJ66Z5"
 ACTIVE_PRIVATE_KEY="5JhkMn1vP6omtS4nwzWvZX9a6rjuXmpDY7kiMiXSbHW2XRowG5D"
 
-echo "=== setup wallet: notechainwal ==="
+echo "=== setup wallet: eosappwallet ==="
 # key for eosio account and export the generated password to a file for unlocking wallet later
-cleos wallet create -n notechainwal --to-console | tail -1 | sed -e 's/^"//' -e 's/"$//' > notechain_wallet_password.txt
-# Owner key for notechainwal wallet
-cleos wallet import -n notechainwal --private-key 5JpWT4ehouB2FF9aCfdfnZ5AwbQbTtHBAwebRXt94FmjyhXwL4K
-# Active key for notechainwal wallet
-cleos wallet import -n notechainwal --private-key 5JD9AGTuTeD5BXZwGQ5AtwBqHK21aHmYnTetHgk1B3pjj7krT8N
+cleos wallet create -n eosappwallet --to-console | tail -1 | sed -e 's/^"//' -e 's/"$//' > eosappwallet_password.txt
+# Owner key for eosappwallet wallet
+cleos wallet import -n eosappwallet --private-key 5JpWT4ehouB2FF9aCfdfnZ5AwbQbTtHBAwebRXt94FmjyhXwL4K
+# Active key for eosappwallet wallet
+cleos wallet import -n eosappwallet --private-key 5JD9AGTuTeD5BXZwGQ5AtwBqHK21aHmYnTetHgk1B3pjj7krT8N
 # Active key for eosio.token
-cleos wallet import -n notechainwal --private-key 5JhkMn1vP6omtS4nwzWvZX9a6rjuXmpDY7kiMiXSbHW2XRowG5D
+cleos wallet import -n eosappwallet --private-key 5JhkMn1vP6omtS4nwzWvZX9a6rjuXmpDY7kiMiXSbHW2XRowG5D
 
-# * Replace "notechainwal" by your own wallet name when you start your own project
+# * Replace "eosappwallet" by your own wallet name when you start your own project
 
 # create account for notechainacc with above wallet's public keys
-cleos create account eosio notechainacc EOS6PUh9rs7eddJNzqgqDx1QrspSHLRxLMcRdwHZZRL4tpbtvia5B EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9
+# cleos create account eosio notechainacc EOS6PUh9rs7eddJNzqgqDx1QrspSHLRxLMcRdwHZZRL4tpbtvia5B EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9
 
 # Create system accounts
 cleos create account eosio eosio.token  ${OWNER_PUBLIC_KEY} ${ACTIVE_PUBLIC_KEY} -p eosio
@@ -77,11 +77,11 @@ echo "=== deploy eosio.bios && eosio.token && eosio.msig smart contracts ==="
 # $3 wallet for unlock the account
 # $4 password for unlocking the wallet
 
-deploy_system_contract.sh eosio.bios eosio notechainwal $(cat notechain_wallet_password.txt)
-deploy_system_contract.sh eosio.token eosio.token notechainwal $(cat notechain_wallet_password.txt)
+deploy_system_contract.sh eosio.bios eosio eosappwallet $(cat eosappwallet_password.txt)
+deploy_system_contract.sh eosio.token eosio.token eosappwallet $(cat eosappwallet_password.txt)
 cleos push action eosio.token create '[ "eosio", "1000000000.0000 EOS"]' -p eosio.token
 cleos push action eosio.token issue '[ "eosio", "1000000000.0000 EOS", "init" ]' -p eosio eosio.token
-deploy_system_contract.sh eosio.msig eosio.msig notechainwal $(cat notechain_wallet_password.txt)
+deploy_system_contract.sh eosio.msig eosio.msig eosappwallet $(cat eosappwallet_password.txt)
 
 
 # Set the system contract - times out first times, works second time
@@ -99,10 +99,12 @@ echo "=== create user accounts ==="
 # script for create data into blockchain
 create_accounts.sh
 
+echo "=== CREATE YOUR APP ACCOUNT HERE ==="
+echo "create hello account for hello contract"
 cleos system newaccount eosio --transfer dummyaccount EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9 \
 --stake-net "1.0000 EOS" --stake-cpu "1.0000 EOS" --buy-ram-kbytes 8192
 
-echo "create hello account ==="
+echo "create hello account for hello contract"
 cleos system newaccount eosio --transfer hello EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9 \
 --stake-net "1.0000 EOS" --stake-cpu "1.0000 EOS" --buy-ram-kbytes 13192
 
@@ -111,8 +113,8 @@ echo "=== deploy smart contract ==="
 # $2 account holder name of the smart contract
 # $3 wallet for unlock the account
 # $4 password for unlocking the wallet
-# deploy_contract.sh notechain notechainacc notechainwal $(cat notechain_wallet_password.txt)
-deploy_contract.sh hello hello notechainwal $(cat notechain_wallet_password.txt)
+
+deploy_contract.sh hello hello eosappwallet $(cat eosappwallet_password.txt)
 
 # * Replace the script with different form of data that you would pushed into the blockchain when you start your own project
 run_hello.sh

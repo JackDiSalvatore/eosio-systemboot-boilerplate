@@ -1,15 +1,18 @@
+# eosio-systemboot-boilerplate
 
-This is a work in progress
+This is an evolving docker environment for running and testing eosio smart contracts.
+It appears block.one is deprecating the docker instance, therefore this repo may
+become obsolete in the near future.  Untill then, this script will boot up an
+eosio node, load all of the system contracts, create a new account called `hello`
+and deploy a boiler plate `hello` smart contract.
 
-To run a full boot of the eosio system contracts (eosio.contractsv1.4.0),
- which will create the system token "EOS" and set the system contract all
- inside the 'eosio_notechain_container' docker run
+Since everything is running inside a docker image, the blockchain can be
+started with
 ```bash
 ./start_eosio_docker.sh
 ```
 
-To shut down press Ctrl+C and run
-
+And shut down by pressing `Ctrl+C` and running
 ```bash
 ./stop_eosio_docker.sh
 ```
