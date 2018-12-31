@@ -102,14 +102,20 @@ create_accounts.sh
 cleos system newaccount eosio --transfer dummyaccount EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9 \
 --stake-net "1.0000 EOS" --stake-cpu "1.0000 EOS" --buy-ram-kbytes 8192
 
+echo "create hello account ==="
+cleos system newaccount eosio --transfer hello EOS8BCgapgYA2L4LJfCzekzeSr3rzgSTUXRXwNi8bNRoz31D14en9 \
+--stake-net "1.0000 EOS" --stake-cpu "1.0000 EOS" --buy-ram-kbytes 13192
+
 echo "=== deploy smart contract ==="
 # $1 smart contract name
 # $2 account holder name of the smart contract
 # $3 wallet for unlock the account
 # $4 password for unlocking the wallet
 # deploy_contract.sh notechain notechainacc notechainwal $(cat notechain_wallet_password.txt)
+deploy_contract.sh hello hello notechainwal $(cat notechain_wallet_password.txt)
 
 # * Replace the script with different form of data that you would pushed into the blockchain when you start your own project
+run_hello.sh
 
 echo "=== end of setup blockchain accounts and smart contract ==="
 # create a file to indicate the blockchain has been initialized
