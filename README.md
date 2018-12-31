@@ -1,5 +1,9 @@
 # eosio-systemboot-boilerplate
 
+#### eosio           | Version : 1.4.4
+#### eosio.cdt       | Version : 1.4.1
+#### eosio.contracts | Version : 1.5.1
+
 This is an evolving docker environment for running and testing eosio smart contracts.
 It appears block.one is deprecating the docker instance, therefore this repo may
 become obsolete in the near future.  Untill then, this script will boot up an
